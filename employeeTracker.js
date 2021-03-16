@@ -1,4 +1,6 @@
 const mysql = require('mysql');
+const inquirer = require('inquirer');
+const fs = require('fs')
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -10,6 +12,27 @@ const connection = mysql.createConnection({
   password: '',
   database: '',
 });
+
+inquirer
+  .prompt([
+    {
+      name: 'action',
+      type: 'list',
+      message: 'What would you like to do?',
+      choices: [
+        'Find songs by artist',
+        'Find all artists who appear more than once',
+        'Find data within a specific range',
+        'Search for a specific song',
+        'exit',
+      ],
+    },
+  ])
+  .then((response) => {
+      
+  }
+    
+  );
 
 const afterConnection = () => {
   connection.query('SELECT * FROM', (err, res) => {
