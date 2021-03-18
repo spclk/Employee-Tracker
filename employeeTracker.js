@@ -86,6 +86,22 @@ const viewDepartments = () => {
   });
 };
 
+const viewEmployees = () => {
+  const query = "SELECT * FROM employee";
+  connection.query(query, (err, res) => {
+    res.forEach(({ first_name, last_name }) => console.log(first_name, last_name));
+    allQuestions();
+  });
+};
+
+const viewRoles = () => {
+  const query = "SELECT * FROM role";
+  connection.query(query, (err, res) => {
+    res.forEach(({ title }) => console.log(title));
+    allQuestions();
+  });
+};
+
 const addDepartment = () => {
   inquirer
     .prompt(
