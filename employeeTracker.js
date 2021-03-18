@@ -29,11 +29,22 @@ inquirer
     },
   ])
   .then((response) => {
+      switch (response.action) {
+        case "view departments": 
+          viewDepartment();
+          break;
       
+        default:
+          break;
+      }
   }
     
   );
 
+  function viewDepartment() {
+    console.log()
+  }
+  
 const afterConnection = () => {
   connection.query('SELECT * FROM', (err, res) => {
     if (err) throw err;
