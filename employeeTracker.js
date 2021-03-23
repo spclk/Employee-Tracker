@@ -9,9 +9,9 @@ const connection = mysql.createConnection({
 
   port: 3306,
 
-  user: 'root',
+  user: '',
 
-  password: 'root',
+  password: '',
   database: 'employee_db',
 });
 
@@ -30,7 +30,7 @@ const allQuestions = () => {
           "Add Department",
           "Add Employee",
           "Add Role",
-          "Update Role",
+          "Update Employee",
           "Exit",
         ],
       },
