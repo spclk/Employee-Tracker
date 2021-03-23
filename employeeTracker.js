@@ -30,8 +30,6 @@ const allQuestions = () => {
           "Add Department",
           "Add Employee",
           "Add Role",
-          "Update Department",
-          "Update Employee",
           "Update Role",
           "Exit",
         ],
@@ -150,7 +148,6 @@ const addRole = () => {
         let match = res.find((dept) => {
           return dept.name === answer.roleDepartment
         })
-        console.log(match)
         const query = "INSERT INTO role SET ?"
         connection.query(query,
           {
@@ -192,7 +189,6 @@ const addEmployee = () => {
         let match = res.find((roles) => {
           return roles.name === answer.roleID
         })
-        console.log(match)
         const role = match.id;
         const query = "INSERT INTO employee SET ?"
         connection.query(query,
@@ -209,11 +205,5 @@ const addEmployee = () => {
       })
   })
 };
-
-// connection.connect((err) => {
-//   if (err) throw err;
-//   console.log(`connected as id ${connection.threadId}`);
-//   connection.end();
-// });
 
 allQuestions();
