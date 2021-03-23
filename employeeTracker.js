@@ -9,9 +9,9 @@ const connection = mysql.createConnection({
 
   port: 3306,
 
-  user: '',
+  user: 'root',
 
-  password: '',
+  password: 'root',
   database: 'employee_db',
 });
 
@@ -126,7 +126,6 @@ const addDepartment = () => {
 
 const addRole = () => {
   const query = "SELECT * FROM department";
-  // const query = "SELECT id, name AS title FROM department"
   connection.query(query, (err, res) => {
     inquirer
       .prompt([
@@ -143,7 +142,7 @@ const addRole = () => {
         {
           name: "roleDepartment",
           type: "list",
-          message: "What department does this role belong to",
+          message: "Which department does this role belong to?",
           choices: res
         }
       ])
@@ -166,13 +165,51 @@ const addRole = () => {
       })
   })
 };
-// const afterConnection = () => {
-//   connection.query('SELECT * FROM', (err, res) => {
-//     if (err) throw err;
-//     console.log(res);
-//     connection.end();
-//   });
-// };
+
+const addEmployee = () => {
+  const query = "SELECT id, title AS name FROM role"
+  connection.query(query, (err, res) => {
+     inquirer
+      .prompt([
+        {
+          name: "firstName",
+          type: "input",
+          message: "What's the first name of the new emplyee?",
+        },
+        {
+          name: "lastName",
+          type: "input",
+          message: "What's the last name of the new emplyee?",
+        },
+        {
+          name: "roleID",
+          type: "list",
+          message: "Choose the role this employee has",
+          choices: res
+        }
+      ])
+      .then((answer) => {
+        let match = res.find((roles) => {
+          return roles.name === answer.roleID
+        })
+        console.log(match)
+        const role = match.id;
+        const query = "INSERT INTO employee SET ?"
+        connection.query(query,
+          {
+            first_name: answer.firstName,
+            last_name: answer.lastName,
+            role_id: role,
+            manager_id: "1"
+          },
+          (err, res) => {
+            if (err) throw err;
+          })
+        allQuestions();
+      })
+  })
+};
+
 // connection.connect((err) => {
 //   if (err) throw err;
 //   console.log(`connected as id ${connection.threadId}`);
